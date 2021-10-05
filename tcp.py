@@ -1,6 +1,11 @@
 import logging
 import socket
 
+
+def save(path):
+    with open('log.txt', 'a+') as file:
+        file.write(path)
+
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_address = ('localhost', 10000)
 sock.bind(server_address)
@@ -19,7 +24,9 @@ while True:
             zap = f'{response}{data}'.split('\n')
             for i in zap:
                 i = i.split(' ')
-                print(f'Спортсмен {i[0]}, id {i[1]}, время {i[2]}, группа {i[3]}')
+                tick = f'Спортсмен {i[0]}, id {i[1]}, время {i[2]}, группа {i[3]}\n'
+                print(tick)
+                save(tick)
             logging.info()
 
     except Exception:
